@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.StaffMapper">
+
+      <!--public void insertNewStaff(Staff staff);-->
+    <insert id="insertNewStaff" >
+        insert into  Staff(  `user_name`,`password`,`name`, `gender`,`age`, `phone_number`,
+        `role`)   values(#{userName},#{password},#{name},#{gender},#{age},#{phoneNumber},#{role})
+
+    </insert>
+
+    <!--Staff selectByUserNameAndPwd(@Param("userName")String userName,@Param("password")String password) ;-->
+    <select id="selectByUserNameAndPwd" resultType="com.zlx.serestaurant.bean.Staff" >
+       select * from Staff where user_name=#{userName} and password=#{password}
+    </select>
+
+
+
+</mapper>
