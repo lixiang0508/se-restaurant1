@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.HostMapper">
+    <!-- void updateStatus1(int tableId);-->
+    <update id="updateStatus1">
+        update `Table` set status=1 where id=#{tableId}
+    </update>
+
+
+    <!--int findTable(@Param("person")int person);-->
+     <select id="findTable"  resultType="int"  >
+         select id from `Table` where status=0 and seats>=#{person} order by seats limit 1,1;
+     </select>
+    <select id="countTable" resultType="int">
+        select count(id) from `Table` where status=0 and seats>= #{person}
+    </select>
+    <select id="getTable" resultType="com.zlx.serestaurant.bean.Table">
+        select * from `Table` where id=#{tableId}
+    </select>
+    <select id="showAllTable" resultType="com.zlx.serestaurant.bean.Table">
+        select * from     `Table`
+    </select>
+
+</mapper>

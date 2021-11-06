@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+      <h1>Welcome to intelligent restaurant project!</h1>
+       <h2>请登录或注册</h2>
+注册：
+<form action="index" method="post" th:action="@{/api/register}">
+    <!--显示错误信息-->
+    <label style="color: red"  th:text= "${msg}"   ></label>
+    用户名:  <input type="text" name="userName">
+    密码:<input type="text" name="password">
+    姓名:<input type="text" name="name">
+    性别:<input type="checkbox" name="gender" value="0">男
+    <input type="checkbox" name="gender" value="1">女
+    <input type="checkbox" name="gender" value="2">其他
+
+     <br>
+    年龄:<input type="text"  name="age">
+    手机号:<input type="text" name="phoneNumber">
+    角色:<input type="checkbox" name="role" value="迎宾员"> 迎宾员
+    <input type="checkbox" name="role" value="服务员">服务员
+    <input type="checkbox" name="role" value="厨师"> 厨师
+    <input type="checkbox" name="role" value="清洁工">清洁工
+
+
+    <input type="submit"   value="提交注册">
+
+</form>
+
+
+登录：
+<form method="post"    th:action="@{/api/login}"  >
+    用户名:<input type="text"   name="userName" >
+    密码:<input type="text"       name="password" >
+    <input type="submit"  value="提交登录" >
+</form>
+</body>
+</html>
