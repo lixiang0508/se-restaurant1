@@ -48,37 +48,43 @@ public class LoginController {
     //注意 如果前端用Json来写 封装成POJO对象这种写法是不行的 应该用@RequestBody注解
     @ResponseBody
     @PostMapping("/api/register")
-    public JsonData register(HttpSession session, Model model, @RequestBody Staff staff) {
-        String tmpUsrName=staff.getUserName();    //用户填写的用户名
+    /*@RequestParam("userName") String tmpUsrName, @RequestParam("password") String password
+     @RequestParam("gender") int tmpGender, @RequestParam("age") int age, @RequestParam("phoneNumber") String tmpPhoneNumber,
+    @RequestParam("role") String tmpRole*/
+    public JsonData register(HttpSession session, Model model, @RequestParam("userName") String tmpUsrName, @RequestParam("password") String password,
+     @RequestParam("gender") int tmpGender, @RequestParam("age") int tmpAge, @RequestParam("phoneNumber") String tmpPhoneNumber,
+    @RequestParam("role") String tmpRole,@RequestParam("password") String tmpPwd, @RequestParam("name") String tmpName) {
+        //String tmpUsrName=staff.getUserName();    //用户填写的用户名
         if(checkStr(tmpUsrName)==false)  {
             model.addAttribute("msg","用户名格式不合规范！") ;
               return new JsonData(-1,"用户名格式不合规范！");
 
         }
-        String tmpPwd=staff.getPassword();//用户填写的密码
+       // String tmpPwd=staff.getPassword();//用户填写的密码
         if(checkStr(tmpPwd)==false)  {
             model.addAttribute("msg","密码格式不合规范！") ;
             return new JsonData(-1,"密码格式不合规范！");
         }
-        String tmpName=staff.getName();  //  用户填写的姓名
+        //String tmpName=staff.getName();  //  用户填写的姓名
         if(tmpName.length()>10) {
             model.addAttribute("msg","姓名不可以超过10个字！") ;
             return new JsonData(-1,"姓名不能超过10个字！");
 
         }
-        int tmpAge=staff.getAge();  //用户填写的年龄
+        //int tmpAge=staff.getAge();  //用户填写的年龄
         if(tmpAge>100){
             model.addAttribute("msg","年龄不能大于100岁！") ;
             return new JsonData(-1,"年龄不能大于100岁！");
         }
-        int tmpGender=staff.getGender();//用户填写的性别
-        String tmpPhoneNumber =staff.getPhoneNumber() ;//用户填写的电话号码
+        //int tmpGender=staff.getGender();//用户填写的性别
+        //String tmpPhoneNumber =staff.getPhoneNumber() ;//用户填写的电话号码
         if(tmpPhoneNumber.length()!=11) {
             model.addAttribute("msg","电话号码必须为11位") ;
             return JsonData.buildError("电话号码必须为11位");
         }
-        String tmpRole= staff.getRole();//用户填写的角色
+        //String tmpRole= staff.getRole();//用户填写的角色
            //向数据库中插入一条新的用户数据
+        Staff staff = new Staff(tmpUsrName,tmpPwd,tmpName,tmpGender,tmpAge,tmpPhoneNumber,tmpRole)   ;
           staffService.addNewStaff(staff);
 
 
@@ -95,10 +101,10 @@ public class LoginController {
 
         @ResponseBody
         @PostMapping("/api/login")
-    //public JsonData  login(HttpSession session,Model model,@RequestParam("username") String username, @RequestParam("password") String password) {
-        public JsonData  login(HttpSession session,Model model,@RequestBody Map<String,String> params){
-        String username=params.get("username");
-        String password=params.get("password");
+    //public JsonData  login(HttpSession session,Model model,@RequestParam("username") String username, @RequestParam("password") String password) @RequestBody Map<String,String> params{
+        public JsonData  login(HttpSession session,Model model,@RequestParam("userName") String username, @RequestParam("password") String password){
+        //String username=params.get("username");
+        //String password=params.get("password");
             Staff staff = staffService.selectStaff(username, password);
             if(staff==null) {
                 model.addAttribute("msg","用户名或者密码错误！");
