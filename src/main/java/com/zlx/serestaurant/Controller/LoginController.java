@@ -51,9 +51,8 @@ public class LoginController {
     /*@RequestParam("userName") String tmpUsrName, @RequestParam("password") String password
      @RequestParam("gender") int tmpGender, @RequestParam("age") int age, @RequestParam("phoneNumber") String tmpPhoneNumber,
     @RequestParam("role") String tmpRole*/
-    public JsonData register(HttpSession session, Model model, @RequestParam("userName") String tmpUsrName, @RequestParam("password") String password,
-     @RequestParam("gender") int tmpGender, @RequestParam("age") int tmpAge, @RequestParam("phoneNumber") String tmpPhoneNumber,
-    @RequestParam("role") String tmpRole,@RequestParam("password") String tmpPwd, @RequestParam("name") String tmpName) {
+    public JsonData register(HttpSession session, Model model, @RequestParam("username") String tmpUsrName, @RequestParam("password") String tmpPwd,
+     @RequestParam("phoneNumber") String tmpPhoneNumber) {
         //String tmpUsrName=staff.getUserName();    //用户填写的用户名
         if(checkStr(tmpUsrName)==false)  {
             model.addAttribute("msg","用户名格式不合规范！") ;
@@ -66,6 +65,7 @@ public class LoginController {
             return new JsonData(-1,"密码格式不合规范！");
         }
         //String tmpName=staff.getName();  //  用户填写的姓名
+        /*
         if(tmpName.length()>10) {
             model.addAttribute("msg","姓名不可以超过10个字！") ;
             return new JsonData(-1,"姓名不能超过10个字！");
@@ -75,7 +75,7 @@ public class LoginController {
         if(tmpAge>100){
             model.addAttribute("msg","年龄不能大于100岁！") ;
             return new JsonData(-1,"年龄不能大于100岁！");
-        }
+        }    */
         //int tmpGender=staff.getGender();//用户填写的性别
         //String tmpPhoneNumber =staff.getPhoneNumber() ;//用户填写的电话号码
         if(tmpPhoneNumber.length()!=11) {
@@ -84,7 +84,8 @@ public class LoginController {
         }
         //String tmpRole= staff.getRole();//用户填写的角色
            //向数据库中插入一条新的用户数据
-        Staff staff = new Staff(tmpUsrName,tmpPwd,tmpName,tmpGender,tmpAge,tmpPhoneNumber,tmpRole)   ;
+       // Staff staff = new Staff(tmpUsrName,tmpPwd,tmpName,tmpGender,tmpAge,tmpPhoneNumber,tmpRole)   ;
+          Staff staff= new Staff(tmpUsrName,tmpPwd,tmpPhoneNumber);
           staffService.addNewStaff(staff);
 
 
@@ -102,7 +103,7 @@ public class LoginController {
         @ResponseBody
         @PostMapping("/api/login")
     //public JsonData  login(HttpSession session,Model model,@RequestParam("username") String username, @RequestParam("password") String password) @RequestBody Map<String,String> params{
-        public JsonData  login(HttpSession session,Model model,@RequestParam("userName") String username, @RequestParam("password") String password){
+        public JsonData  login(HttpSession session,Model model,@RequestParam("username") String username, @RequestParam("password") String password){
         //String username=params.get("username");
         //String password=params.get("password");
             Staff staff = staffService.selectStaff(username, password);
