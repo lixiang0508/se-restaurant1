@@ -40,4 +40,9 @@ public class Staff {
         this.phoneNumber = phoneNumber;
         this.role = role;
     }
+ public Staff(String userName, String password,String phoneNumber) {
+        this.userName = userName;
+        this.password = password;
+        this.phoneNumber=phoneNumber;
+    }
 }
