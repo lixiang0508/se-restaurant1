@@ -33,6 +33,7 @@ public class HostController {
         table.setStatus(1);
         hostService.updateStatus1(tableId);
         // to update 通知服务员
+        //需要显示查找到了几号桌子
         return JsonData.buildSuccess(tableId,"查找成功");
     }
 
