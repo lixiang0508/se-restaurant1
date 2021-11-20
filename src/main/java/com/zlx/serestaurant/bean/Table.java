@@ -19,6 +19,8 @@ public class Table {
     private int seats;//有多少座位
     private int  page;//在第几页
     private int status;//使用状态 0清理完毕 1 正在用餐 2 待清理
+    private int xaxis;//横坐标
+    private int yaxis;//纵坐标
     //private int price;//这桌菜品的总价格
     @TableField(exist = false)
     private List<Dish> dishes; //所有菜品
