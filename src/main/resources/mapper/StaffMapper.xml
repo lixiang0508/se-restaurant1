@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.StaffMapper">
+
+      <!--public void insertNewStaff(Staff staff);-->
+    <insert id="insertNewStaff" >
+        insert into  Staff(  `user_name`,`password`,`name`, `gender`,`age`, `phone_number`,
+        `role`)   values(#{userName},#{password},#{name},#{gender},#{age},#{phoneNumber},#{role})
+
+    </insert>
+    <update id="updateStaff" parameterType="com.zlx.serestaurant.bean.Staff">
+        update Staff set name=#{name}, user_name=#{userName},gender=#{gender}, password=#{password},age=#{age},salary=#{salary},phone_number=#{phoneNumber} where staff_id=#{staffId}
+    </update>
+
+    <!--Staff selectByUserNameAndPwd(@Param("userName")String userName,@Param("password")String password) ;-->
+    <select id="selectByUserNameAndPwd" resultType="com.zlx.serestaurant.bean.Staff" >
+       select * from Staff where user_name=#{userName} and password=#{password}
+    </select>
+    <select id="findByPhoneNumber" resultType="com.zlx.serestaurant.bean.Staff"
+            parameterType="java.lang.String">
+        select * from Staff where phone_number=#{phoneNumber}
+    </select>
+    <select id="countByUserName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1) from Staff where user_name=#{userName}
+    </select>
+    <select id="findByStaffId" resultType="com.zlx.serestaurant.bean.Staff" parameterType="int">
+        select * from Staff where staff_id=#{staffid}
+    </select>
+    <select id="findByUserName" resultType="com.zlx.serestaurant.bean.Staff">
+        select * from Staff where user_name =#{userName}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.DishMapper">
+
+
+    <update id="addSaleCount" parameterType="com.zlx.serestaurant.bean.Dish">
+         update Dish set   sale_count = sale_count +1 where name=#{name}
+    </update>
+
+
+    <!--void save(Dish dish) ;//update -->
+    <update id="decreaseStock" parameterType="com.zlx.serestaurant.bean.Dish">
+          update Dish set repository= repository-1 where     name=#{name}
+    </update>
+    <update id="increaseStock" parameterType="com.zlx.serestaurant.bean.Dish">
+        update Dish set repository= repository+1 where     name=#{name}
+    </update>
+    <select id="getDishById" resultType="com.zlx.serestaurant.bean.Dish" parameterType="int">
+        select * from Dish where id=#{dishId}
+    </select>
+    <select id="findAllDishes" resultType="com.zlx.serestaurant.bean.Dish">
+        select * from Dish
+    </select>
+</mapper>

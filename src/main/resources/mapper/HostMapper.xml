@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.HostMapper">
+    <insert id="addCustomer" parameterType="com.zlx.serestaurant.bean.Customer">
+        insert into  `Customer` (id,start_time,table_id,amount) values(#{cusId},#{startTime}
+        ,#{tableId},#{amount})
+    </insert>
+    <!-- void updateStatus1(int tableId);-->
+    <update id="updateStatus1">
+        update `Table` set status=0 where id=#{tableId}
+    </update>
+    <!--void changeTableStatus(int id, int seats, int page, int status, int cusId, int waiterId);-->
+    <update id="changeTableStatus">
+        update   `Table` set status=#{status},seats=#{seats},page=#{page},cus_id=#{cusId},waiter_id=#{waiterId},order_id=#{orderId},xaxis=#{xaxis},yaxis=#{yaxis},real_on =#{realOn} where id=#{id}
+    </update>
+    <update id="updateTable" parameterType="com.zlx.serestaurant.bean.Table">
+        update  `Table` set cus_id= #{cusId},real_on =#{realOn},status=#{status},order_id=#{orderId} where   id= #{id}
+    </update>
+
+
+    <!--int findTable(@Param("person")int person);-->
+     <select id="findTable"  resultType="int"  >
+         select id from `Table` where status=-1 and seats>=#{person} order by seats limit 1,1;
+     </select>
+    <select id="countTable" resultType="int">
+        select count(id) from `Table` where status=-1 and seats>= #{person}
+    </select>
+    <select id="getTable" resultType="com.zlx.serestaurant.bean.Table">
+        select * from `Table` where id=#{tableId}
+    </select>
+    <select id="showAllTable" resultType="com.zlx.serestaurant.bean.Table">
+        select * from     `Table`
+    </select>
+    <select id="findWaiterBytableId" resultType="java.lang.Integer" parameterType="int">
+        select waiter_id from `Table` where id =#{tableId}
+    </select>
+    <select id="findTableByOrderId" resultType="com.zlx.serestaurant.bean.Table">
+        select * from `Table` where order_id =#{orderId}
+    </select>
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.OrderMapper">
+    <!--//订单详情入库
+    void saveOrderProduct(OrderDTO orderDTO);-->
+    <insert id="saveOrderProduct" parameterType="com.zlx.serestaurant.bean.Orderproduct">
+          insert into Orderproduct (  `order_id`,`name`,`count`, `price`,`dish_id`,`img`,
+        `status`   ) values(#{orderId},#{name},#{count},#{price},#{dishId},#{img},#{status})
+
+    </insert>
+    <!-- //订单入库
+    void saveOrder(Order order);-->
+    <insert id="saveOrder" parameterType="com.zlx.serestaurant.bean.Order">
+         insert into  `Order`  (  `order_id`,`cus_id`, `price`,`table_id` , `status`,`order_date`, `pay_status`
+        )values(#{orderId},#{cusId},#{price},#{tableId},#{status},#{orderDate},#{payStatus})
+    </insert>
+    <update id="updateOrder" parameterType="com.zlx.serestaurant.bean.Order">
+
+        update   `Order`  set  `price`=#{price}, `status`= #{status}, `pay_status`=  #{payStatus},finish_date=#{finishDate}
+      where    `order_id` =#{orderId}
+    </update>
+    <update id="updateOrderProduct" parameterType="com.zlx.serestaurant.bean.Orderproduct">
+       update Orderproduct set status=#{status}, finish_date =#{finishDate} where order_id=#{orderId} and dish_id=#{dishId}
+    </update>
+    <update id="changeOrderStatus" parameterType="int">
+        update Orderproduct set status=2 where order_id =#{orderId}
+    </update>
+    <delete id="deleteFromOrderproducts" parameterType="int">
+        delete from Orderproduct where order_id=#{orderId}
+    </delete>
+
+
+    <select id="findOrderByCusId" resultType="com.zlx.serestaurant.bean.Order" parameterType="int">
+        select * from `Order`  where cus_id =#{cusId}
+    </select>
+
+    <select id="findOrderDetails" resultType="com.zlx.serestaurant.bean.Orderproduct" parameterType="int">
+        select * from Orderproduct where order_id=#{orderId}
+    </select>
+    <select id="findOrderByOrderId" resultType="com.zlx.serestaurant.bean.Order" parameterType="int">
+        select * from `Order`  where order_id =#{orderId}
+    </select>
+    <select id="findAllOrders" resultType="com.zlx.serestaurant.bean.Order">
+        select * from `Order`
+    </select>
+    <select id="findDishesTodo" resultType="com.zlx.serestaurant.bean.Orderproduct">
+
+        select * from Orderproduct where   status=0
+        order by order_date
+    </select>
+    <select id="findDishesDone" resultType="com.zlx.serestaurant.bean.Orderproduct">
+        select * from Orderproduct where   status=1
+        order by order_date
+    </select>
+    <select id="findDish" resultType="com.zlx.serestaurant.bean.Orderproduct">
+             select * from Orderproduct where order_id=#{orderId} and dish_id=#{dishId}
+
+    </select>
+</mapper>

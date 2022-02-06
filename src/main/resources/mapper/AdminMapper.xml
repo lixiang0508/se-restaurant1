@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlx.serestaurant.mapper.AdminMapper">
+    <insert id="dishOn" parameterType="com.zlx.serestaurant.bean.Dish" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into Dish ( price,`name`, sale_count,img, repository,category) values(#{price}
+        ,#{name},#{saleCount},#{img},#{repository},#{category})
+    </insert>
+    <delete id="dishDown" parameterType="java.lang.Integer">
+        delete from Dish where id =#{dishId}
+    </delete>
+
+
+    <select id="showAllemps" resultType="com.zlx.serestaurant.bean.Staff">
+              select * from Staff
+    </select>
+</mapper>
